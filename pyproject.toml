@@ -22,7 +22,7 @@ pytest-xdist = "*"
 pytest-timeout = "*"
 autoflake = "*"
 black = "*"
-flake8 = "*"
+flake8 = "^7.1.2"
 flake8-bugbear = "*"
 flake8-builtins = "*"
 flake8-comprehensions = "*"
@@ -40,6 +40,7 @@ python-kacl = "*"
 pyupgrade = "*"
 mypy = "^1.15.0"
 requests-mock = "^1.12.1"
+types-requests = "^2.32.0.20250301"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -50,5 +51,10 @@ pythonpath = [
     "."
 ]
 
+[tool.isort]
+profile = "black"
+src_paths = ["gistapi", "tests"]
 
-
+[tool.black]
+target-version = ["py312"]
+include = '\.pyi?$'

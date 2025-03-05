@@ -1,5 +1,6 @@
 from bdd_helper import *
 
+
 def test_search_when_user(client):
     Given("input")
     input = {"username": "gilcu2", "pattern": ".*"}
@@ -12,6 +13,7 @@ def test_search_when_user(client):
     result = response.json
     assert result["status"] == "success"
     assert len(result["matches"]) > 0
+
 
 def test_search_when_pagination(client):
     Given("input")

@@ -1,5 +1,7 @@
-from bdd_helper import *
 import requests
+
+from bdd_helper import *
+
 
 def test_ping():
     When("get ping")
@@ -8,6 +10,7 @@ def test_ping():
     Then("it is expected")
     assert response.status_code == 200
     assert response.text == "pong"
+
 
 def test_search_when_user():
     Given("input")
@@ -21,6 +24,7 @@ def test_search_when_user():
     result = response.json()
     assert result["status"] == "success"
     assert len(result["matches"]) > 0
+
 
 def test_search_when_pagination():
     Given("input")

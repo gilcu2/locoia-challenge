@@ -8,10 +8,13 @@ endpoint to verify the server is up and responding and a search endpoint
 providing a search across all public Gists for a given GitHub account.
 """
 
-from flask import Flask, jsonify, request, abort
+import logging
+import sys
+
+from flask import Flask, abort, jsonify, request
+
+from gistapi.app_logic import create_result, filter
 from gistapi.github_calls import get_gists
-from gistapi.app_logic import filter, create_result
-import logging, sys
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -31,7 +34,7 @@ def ping():
     return "pong"
 
 
-@app.route("/api/v1/search", methods=['POST'])
+@app.route("/api/v1/search", methods=["POST"])
 def search():
     """Provides matches for a single pattern across a single users gists.
 
@@ -45,10 +48,10 @@ def search():
     """
     post_data = request.get_json()
 
-    username = post_data.get('username')
-    pattern = post_data.get('pattern', '.*')
-    page = post_data.get('page')
-    per_page = post_data.get('per_page')
+    username = post_data.get("username")
+    pattern = post_data.get("pattern", ".*")
+    page = post_data.get("page")
+    per_page = post_data.get("per_page")
 
     try:
         gists = get_gists(username, page, per_page)
@@ -63,5 +66,5 @@ def search():
         abort(500, description=err)
 
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=9876)
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=9876)

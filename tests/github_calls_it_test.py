@@ -1,6 +1,5 @@
-import pytest
-from gistapi.github_calls import *
 from bdd_helper import *
+from gistapi.github_calls import *
 
 
 def test_get_gists():

@@ -10,7 +10,7 @@ providing a search across all public Gists for a given GitHub account.
 
 from flask import Flask, jsonify, request, abort
 from gistapi.github_calls import get_gists
-from gistapi.app_logic import extract_matches
+from gistapi.app_logic import filter, create_result
 import logging, sys
 
 logger = logging.getLogger(__name__)
@@ -45,13 +45,16 @@ def search():
     """
     post_data = request.get_json()
 
-    username = post_data['username']
-    pattern = post_data['pattern']
+    username = post_data.get('username')
+    pattern = post_data.get('pattern', '.*')
+    page = post_data.get('page')
+    per_page = post_data.get('per_page')
 
     try:
-        gists = get_gists(username)
+        gists = get_gists(username, page, per_page)
 
-        result = extract_matches(gists, pattern, username)
+        filtered = filter(gists, pattern)
+        result = create_result(gists, filtered, pattern, username)
 
         return jsonify(result)
     except Exception as e:

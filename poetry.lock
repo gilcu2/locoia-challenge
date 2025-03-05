@@ -1351,25 +1351,6 @@ pluggy = ">=1.5,<2"
 dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments (>=2.7.2)", "requests", "setuptools", "xmlschema"]
 
 [[package]]
-name = "pytest-asyncio"
-version = "0.25.3"
-description = "Pytest support for asyncio"
-optional = false
-python-versions = ">=3.9"
-groups = ["dev"]
-files = [
-    {file = "pytest_asyncio-0.25.3-py3-none-any.whl", hash = "sha256:9e89518e0f9bd08928f97a3482fdc4e244df17529460bc038291ccaf8f85c7c3"},
-    {file = "pytest_asyncio-0.25.3.tar.gz", hash = "sha256:fc1da2cf9f125ada7e710b4ddad05518d4cee187ae9412e9ac9271003497f07a"},
-]
-
-[package.dependencies]
-pytest = ">=8.2,<9"
-
-[package.extras]
-docs = ["sphinx (>=5.3)", "sphinx-rtd-theme (>=1)"]
-testing = ["coverage (>=6.2)", "hypothesis (>=5.7.1)"]
-
-[[package]]
 name = "pytest-github-actions-annotate-failures"
 version = "0.3.0"
 description = "pytest plugin to annotate failed tests with a workflow command for GitHub Actions"
@@ -1627,6 +1608,24 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "requests-mock"
+version = "1.12.1"
+description = "Mock out responses from the requests package"
+optional = false
+python-versions = ">=3.5"
+groups = ["dev"]
+files = [
+    {file = "requests-mock-1.12.1.tar.gz", hash = "sha256:e9e12e333b525156e82a3c852f22016b9158220d2f47454de9cae8a77d371401"},
+    {file = "requests_mock-1.12.1-py2.py3-none-any.whl", hash = "sha256:b1e37054004cdd5e56c84454cc7df12b25f90f382159087f4b6915aaeef39563"},
+]
+
+[package.dependencies]
+requests = ">=2.22,<3"
+
+[package.extras]
+fixture = ["fixtures"]
+
+[[package]]
 name = "requests-oauthlib"
 version = "2.0.0"
 description = "OAuthlib authentication support for Requests."
@@ -1850,4 +1849,4 @@ watchdog = ["watchdog (>=2.3)"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<4.0"
-content-hash = "7b139562f65a94b7277d63298e262b6ba1c1c24ce3831a4a585627e9288e4280"
+content-hash = "fd1856301274f94953dc886d22d57c74a138a155846537d75bdb24a16a5edaff"

@@ -6,13 +6,43 @@ authors = [
     {name = "Reynaldo Gil",email = "gilcu2@mail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.12"
-dependencies = [
-    "flask (>=3.1.0,<4.0.0)",
-    "requests (>=2.32.3,<3.0.0)"
-]
+requires-python =  ">=3.12,<4.0"
 
+[tool.poetry.dependencies]
+flask ="^3.1.0"
+requests = "^2.32.3"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pytest-httpx = "^0.35.0"
+pytest-asyncio = "^0.25.3"
+pytest-mock = "^3.14.0"
+pytest-sugar = "*"
+pytest-xdist = "*"
+pytest-timeout = "*"
+autoflake = "*"
+black = "*"
+flake8 = "*"
+flake8-bugbear = "*"
+flake8-builtins = "*"
+flake8-comprehensions = "*"
+flake8-debugger = "*"
+flake8-eradicate = "*"
+flake8-logging-format = "*"
+isort = "*"
+mkdocstrings = "*"
+mkdocs-material = "*"
+pep8-naming = "*"
+pre-commit = "*"
+pymdown-extensions = "*"
+pytest-github-actions-annotate-failures = "*"
+python-kacl = "*"
+pyupgrade = "*"
+mypy = "^1.15.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+

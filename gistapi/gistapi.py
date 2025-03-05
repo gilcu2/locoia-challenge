@@ -11,8 +11,10 @@ providing a search across all public Gists for a given Github account.
 import requests
 from flask import Flask, jsonify, request
 
+def create_app() -> Flask:
+    return Flask(__name__)
 
-app = Flask(__name__)
+app = create_app()
 
 
 @app.route("/ping")

@@ -1,0 +1,6 @@
+services:
+
+  gistapi-service:
+    image: gistapi
+    ports:
+      - "8000:8000"

@@ -1,9 +1,12 @@
 import pytest
-from gistapi.gistapi import app as real_app
+from flask import Flask
+from flask.testing import FlaskClient
+
+from gistapi.app import app as real_app
 
 
 @pytest.fixture()
-def app():
+def app() -> Flask:
     real_app.config.update({
         "TESTING": True,
     })
@@ -12,11 +15,10 @@ def app():
 
 
 @pytest.fixture()
-def client(app):
+def client(app: Flask) -> FlaskClient:
     return app.test_client()
 
 
 @pytest.fixture()
-def runner(app):
+def runner(app: Flask):
     return app.test_cli_runner()
-

@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 class GistFile(BaseModel):
     filename: str
-    raw_url: str
+    url: str
     size: int
     text: str | None = None
 
@@ -40,10 +40,24 @@ def get_gists(
         files = []
         for filename in r["files"]:
             file_dict = r["files"][filename]
+
+            if "content" in file_dict and not file_dict["truncated"]:
+                text=file_dict["content"]
+                url=None
+
+            else:
+                text=None
+                url=None
+                if "raw_url" in file_dict:
+                    url=file_dict["raw_url"]
+                elif  "git_pull_url" in file_dict:
+                    url=file_dict["git_pull_url"]
+
             files.append(GistFile(
                 filename=filename,
-                raw_url=file_dict["raw_url"],
+                url=url,
                 size=file_dict["size"],
+                text=text
             ))
         gists.append(Gist(url=r["url"], files=files))
     return gists

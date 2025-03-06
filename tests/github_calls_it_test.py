@@ -37,13 +37,13 @@ def test_get_gists_pagination_when_no_more():
     Then("result is expected")
     assert len(r) == 0
 
-# TODO need a large file example
+
 def test_download_file():
     Given("gist file")
-    gist_file = get_gists(per_page=1)[0].files[0]
+    gist_file = get_gists(username="gilcu2", per_page=1)[0].files[0]
 
     When("download ")
-    text = download_file(gist_file.raw_url)
+    text = download_file(gist_file.url)
 
     Then("result is expected")
     assert len(text) == gist_file.size

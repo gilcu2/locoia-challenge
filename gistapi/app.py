@@ -14,7 +14,7 @@ import sys
 from flask import Flask, abort, jsonify, request
 from flask_restx import Api, Resource  # type: ignore
 
-from gistapi.app_logic import create_result, download_filter
+from gistapi.app_logic import create_result, download_and_filter
 from gistapi.github_calls import get_gists
 
 logger = logging.getLogger(__name__)
@@ -60,7 +60,7 @@ class Search(Resource):
         try:
             gists = get_gists(username, page, per_page)
 
-            filtered = download_filter(gists, pattern)
+            filtered = download_and_filter(gists, pattern)
             result = create_result(gists, filtered, pattern, username)
 
             return jsonify(result.model_dump())

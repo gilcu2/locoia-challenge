@@ -8,6 +8,7 @@ authors = [
 readme = "README.md"
 requires-python =  ">=3.12,<4.0"
 
+
 [tool.poetry.dependencies]
 flask ="^3.1.0"
 requests = "^2.32.3"
@@ -48,6 +49,9 @@ pytest-cov = "^6.0.0"
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
 
 [tool.pytest.ini_options]
 pythonpath = [

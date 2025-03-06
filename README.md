@@ -1,4 +1,34 @@
-# Challenge
+# Gist service
+
+Service for download gists from GitHub.
+
+# Requirements
+
+- Linux shell
+- python >=3.12,<4.0
+- Poetry >=2.0.0,<3.0.
+- Docker-compose
+
+## Running
+```shell
+./scripts/export_requirements.sh
+./scripts/build_images.sh
+docker-compose up -d
+```
+
+## Api documentation
+
+http://0.0.0.0:8000
+
+## Code Quality (e2e tests require app running in docker compose )
+```shell
+./scripts/precommit.sh
+docker-compose up -d
+./scripts/test.sh
+```
+
+
+## Challenge
 
 This challenge is divided between the main task and additional stretch goals. All of those stretch goals are optional, but we would love to see them implemented. It is expected that you should be able to finish the challenge in about 1.5 hours. If you feel you are not able to implement everything on time, please, try instead describing how you would solve the points you didn't finish.
 

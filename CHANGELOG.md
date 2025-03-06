@@ -5,8 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## Unreleased
 ### Added
-- Download gists
-- Tests
 - Poetry
-- Dockering
--
+- Download gists and its files
+- Tests
+- Code quality
+- Docker deployment
+- Changelog
+- GitHub CI

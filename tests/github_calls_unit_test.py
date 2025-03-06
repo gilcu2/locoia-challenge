@@ -9,7 +9,7 @@ from gistapi.github_calls import get_gists
 def test_get_gists_when_ok(requests_mock):
     Given("username and mocked get")
     username = "gilcu2"
-    data = {}
+    data = []
     requests_mock.get(f"https://api.github.com/users/{username}/gists", json=data)
 
     When("call")

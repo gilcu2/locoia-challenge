@@ -1,4 +1,5 @@
 from urllib.parse import urlencode
+
 import requests
 from pydantic import BaseModel
 
@@ -7,7 +8,7 @@ class GistFile(BaseModel):
     filename: str
     raw_url: str
     size: int
-    text: str
+    text: str | None = None
 
 
 class Gist(BaseModel):
@@ -43,13 +44,11 @@ def get_gists(
                 filename=filename,
                 raw_url=file_dict["raw_url"],
                 size=file_dict["size"],
-                text=file_dict["text"]
             ))
         gists.append(Gist(url=r["url"], files=files))
     return gists
 
 
-def download_whole_file(file: GistFile) -> GistFile:
-    response = requests.get(file.url)
-    file.text = response.text
-    return file
+def download_file(url: str) -> str:
+    response = requests.get(url)
+    return response.text

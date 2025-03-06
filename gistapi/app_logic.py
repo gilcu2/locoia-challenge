@@ -1,20 +1,32 @@
 import re
-from gistapi.github_calls import Gist
+
 from pydantic import BaseModel
 
+from gistapi.github_calls import Gist, download_file
 
-class GistResult(BaseModel)
+
+class GistResult(BaseModel):
     status: str
-    username: str
-    pattern: str
+    username: str|None=None
+    pattern: str|None=None
     matches: list[Gist]
     total: int
 
 
-def filter(gists: list[Gist], pattern: str) -> list[Gist]:
+def download_filter(gists: list[Gist], pattern: str) -> list[Gist]:
     matches = []
     for gist in gists:
-        file_matches = [file for file in gist.files if re.match(pattern, file.text)]
+        file_matches = []
+        for file in gist.files:
+            if file.text:
+                text = file.text
+            else:
+                text = download_file(file.raw_url)
+
+            if re.match(pattern, text):
+                file.text = text
+                file_matches.append(file)
+
         if len(file_matches) > 0:
             gist.files = file_matches
             matches.append(gist)
@@ -23,7 +35,7 @@ def filter(gists: list[Gist], pattern: str) -> list[Gist]:
 
 
 def create_result(
-        gists: list[Gist], filtered_gists: list[Gist], pattern: str, username: str
+        gists: list[Gist], filtered_gists: list[Gist], pattern: str, username: str|None
 ) -> GistResult:
     return GistResult(
         status="success",

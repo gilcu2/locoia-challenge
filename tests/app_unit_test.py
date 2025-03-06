@@ -1,6 +1,7 @@
 from pytest_mock import MockFixture
 
 from bdd_helper import And, Given, Then, When
+from gistapi.app_logic import GistResult
 
 
 def test_ping(client):
@@ -11,7 +12,7 @@ def test_ping(client):
 
     Then("it is expected")
     assert response.status_code == 200
-    assert response.data == b"pong"
+    assert response.data == b'"pong"\n'
 
 
 def test_search_when_ok(client, mocker: MockFixture):
@@ -21,12 +22,13 @@ def test_search_when_ok(client, mocker: MockFixture):
     input = {"username": username, "pattern": pattern}
 
     And("Mocked responses")
-    result = {
-        "status": "success",
-        "username": username,
-        "pattern": pattern,
-        "matches": [],
-    }
+    result = GistResult(
+        status="success",
+        username=username,
+        pattern=pattern,
+        matches=[],
+        total=1,
+    )
     mocker.patch("gistapi.app.get_gists", return_value=[])
     mocker.patch("gistapi.app.filter", return_value=[])
     mocker.patch("gistapi.app.create_result", return_value=result)
@@ -36,7 +38,7 @@ def test_search_when_ok(client, mocker: MockFixture):
 
     Then("it is expected")
     assert response.status_code == 200
-    assert response.json == result
+    assert GistResult.model_validate(response.json) == result
 
 
 def test_search_when_api_call_fails(client, mocker: MockFixture):
@@ -53,3 +55,12 @@ def test_search_when_api_call_fails(client, mocker: MockFixture):
 
     Then("it is expected")
     assert response.status_code == 500
+
+
+def test_swagger(client, mocker: MockFixture):
+    When("get root")
+    response = client.get("/")
+
+    Then("it is expected")
+    assert response.status_code == 200
+    assert "Gist Search API" in response.data.decode("utf-8")

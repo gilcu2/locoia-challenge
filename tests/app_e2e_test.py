@@ -9,7 +9,7 @@ def test_ping():
 
     Then("it is expected")
     assert response.status_code == 200
-    assert response.text == "pong"
+    assert response.text == '"pong"\n'
 
 
 def test_search_when_user():

@@ -1,5 +1,5 @@
 from bdd_helper import Given, Then, When
-from gistapi.github_calls import get_gists, download_whole_file
+from gistapi.github_calls import download_file, get_gists
 
 
 def test_get_gists():
@@ -38,12 +38,12 @@ def test_get_gists_pagination_when_no_more():
     assert len(r) == 0
 
 # TODO need a large file example
-def test_download_whole_file():
+def test_download_file():
     Given("gist file")
     gist_file = get_gists(per_page=1)[0].files[0]
 
     When("download ")
-    r = download_whole_file(gist_file)
+    text = download_file(gist_file.raw_url)
 
     Then("result is expected")
-    assert len(r.text) == r.size
+    assert len(text) == gist_file.size

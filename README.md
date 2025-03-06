@@ -5,7 +5,8 @@ Service for download gists from GitHub.
 # Requirements
 
 - Linux shell
-- Poetry
+- python >=3.12,<4.0
+- Poetry >=2.0.0,<3.0.
 - Docker-compose
 
 ## Running

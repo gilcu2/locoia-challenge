@@ -43,6 +43,7 @@ pyupgrade = "*"
 mypy = "^1.15.0"
 requests-mock = "^1.12.1"
 types-requests = "^2.32.0.20250301"
+pytest-cov = "^6.0.0"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

@@ -1,6 +1,6 @@
 [project]
 name = "locoia-challenge"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = [
     {name = "Reynaldo Gil",email = "gilcu2@mail.com"}

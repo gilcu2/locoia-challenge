@@ -9,7 +9,7 @@ def get_gists(
     gists_url = (
         f"https://api.github.com/users/{username}/gists"
         if username
-        else f"https://api.github.com/gists"
+        else "https://api.github.com/gists"
     )
     params = {}
     if page:

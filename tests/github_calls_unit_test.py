@@ -2,8 +2,8 @@ from json.decoder import JSONDecodeError
 
 import pytest
 
-from bdd_helper import *
-from gistapi.github_calls import *
+from bdd_helper import Given, Then, When
+from gistapi.github_calls import get_gists
 
 
 def test_get_gists_when_ok(requests_mock):
@@ -26,5 +26,5 @@ def test_get_gists_when_problem(requests_mock):
     requests_mock.get(f"https://api.github.com/users/{username}/gists", text=data)
 
     When("call must create exception")
-    with pytest.raises(JSONDecodeError) as e_info:
+    with pytest.raises(JSONDecodeError):
         get_gists(username)

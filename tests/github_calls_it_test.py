@@ -1,5 +1,5 @@
-from bdd_helper import *
-from gistapi.github_calls import *
+from bdd_helper import Given, Then, When
+from gistapi.github_calls import get_gists
 
 
 def test_get_gists():

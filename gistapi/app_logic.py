@@ -13,15 +13,17 @@ class GistResult(BaseModel):
     total: int
 
 
-def download_filter(gists: list[Gist], pattern: str) -> list[Gist]:
+def download_and_filter(gists: list[Gist], pattern: str) -> list[Gist]:
     matches = []
     for gist in gists:
         file_matches = []
         for file in gist.files:
             if file.text:
                 text = file.text
+            elif file.url:
+                text = download_file(file.url)
             else:
-                text = download_file(file.raw_url)
+                text=""
 
             if re.match(pattern, text):
                 file.text = text

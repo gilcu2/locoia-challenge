@@ -20,8 +20,10 @@ def download_and_filter(gists: list[Gist], pattern: str) -> list[Gist]:
         for file in gist.files:
             if file.text:
                 text = file.text
-            else:
+            elif file.url:
                 text = download_file(file.url)
+            else:
+                text=""
 
             if re.match(pattern, text):
                 file.text = text

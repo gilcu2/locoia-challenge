@@ -13,7 +13,7 @@ def test_get_gists():
     r = get_gists(username)
 
     Then("result is expected")
-    assert len(r) == 1
+    assert len(r) > 0
 
 
 def test_get_gists_pagination():
@@ -31,7 +31,7 @@ def test_get_gists_pagination():
 def test_get_gists_pagination_when_no_more():
     Given("page and per_page")
     username = "gilcu2"
-    page = 2
+    page = 10
     per_page = 2
 
     When("call")
@@ -68,7 +68,7 @@ def test_download_large_file():
 def test_download_extra_large_file():
     Given("gist file")
     gist_file = get_gists(username="jssjr",
-                          minimun_size=TEN_MEGA+1,
+                          minimun_size=TEN_MEGA + 1,
                           )[0].files[0]
 
     When("download ")

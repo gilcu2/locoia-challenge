@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 class GistFile(BaseModel):
     filename: str
-    url: str
+    url: str|None = None
     size: int
     text: str | None = None
 

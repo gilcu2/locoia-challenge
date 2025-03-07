@@ -1,6 +1,9 @@
 from bdd_helper import Given, Then, When
 from gistapi.github_calls import download_file, get_gists
 
+ONE_MEGA = 1024 * 1024
+TEN_MEGA = 16 * ONE_MEGA
+
 
 def test_get_gists():
     Given("username and mocked get")
@@ -38,9 +41,35 @@ def test_get_gists_pagination_when_no_more():
     assert len(r) == 0
 
 
-def test_download_file():
+def test_download_small_file():
     Given("gist file")
-    gist_file = get_gists(username="gilcu2", per_page=1)[0].files[0]
+    gist_file = get_gists(username="gilcu2", maximun_size=ONE_MEGA)[0].files[0]
+
+    When("download ")
+    text = download_file(gist_file.url)
+
+    Then("result is expected")
+    assert len(text) == gist_file.size
+
+
+def test_download_large_file():
+    Given("gist file")
+    gist_file = get_gists(username="gilcu2",
+                          minimun_size=ONE_MEGA,
+                          maximun_size=TEN_MEGA)[0].files[0]
+
+    When("download ")
+    text = download_file(gist_file.url)
+
+    Then("result is expected")
+    assert len(text) == gist_file.size
+
+
+def test_download_extra_large_file():
+    Given("gist file")
+    gist_file = get_gists(username="jssjr",
+                          minimun_size=TEN_MEGA+1,
+                          )[0].files[0]
 
     When("download ")
     text = download_file(gist_file.url)

@@ -17,7 +17,8 @@ class Gist(BaseModel):
 
 
 def get_gists(
-        username: str | None = None, page: int | None = None, per_page: int | None = None
+        username: str | None = None, page: int | None = None, per_page: int | None = None,
+        maximun_size: int | None = None, minimun_size: int | None = None,
 ) -> list[Gist]:
     gists_url = (
         f"https://api.github.com/users/{username}/gists"
@@ -41,17 +42,22 @@ def get_gists(
         for filename in r["files"]:
             file_dict = r["files"][filename]
 
+            if maximun_size and file_dict["size"] > maximun_size:
+                continue
+            if minimun_size and file_dict["size"] < minimun_size:
+                continue
+
             if "content" in file_dict and not file_dict["truncated"]:
-                text=file_dict["content"]
-                url=None
+                text = file_dict["content"]
+                url = None
 
             else:
-                text=None
-                url=None
+                text = None
+                url = None
                 if "raw_url" in file_dict:
-                    url=file_dict["raw_url"]
-                elif  "git_pull_url" in file_dict:
-                    url=file_dict["git_pull_url"]
+                    url = file_dict["raw_url"]
+                elif "git_pull_url" in file_dict:
+                    url = file_dict["git_pull_url"]
 
             files.append(GistFile(
                 filename=filename,
@@ -59,7 +65,8 @@ def get_gists(
                 size=file_dict["size"],
                 text=text
             ))
-        gists.append(Gist(url=r["url"], files=files))
+        if len(files) > 0:
+            gists.append(Gist(url=r["url"], files=files))
     return gists
 
 
